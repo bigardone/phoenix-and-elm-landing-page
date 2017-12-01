@@ -11,7 +11,7 @@ defmodule LandingPage.Application do
       # Start the Ecto repository
       supervisor(LandingPage.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(LandingPageWeb.Endpoint, []),
+      supervisor(LandingPageWeb.Endpoint, [])
       # Start your own worker by calling: LandingPage.Worker.start_link(arg1, arg2, arg3)
       # worker(LandingPage.Worker, [arg1, arg2, arg3]),
     ]

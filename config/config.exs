@@ -6,16 +6,14 @@
 use Mix.Config
 
 # General application configuration
-config :landing_page,
-  ecto_repos: [LandingPage.Repo]
+config :landing_page, ecto_repos: [LandingPage.Repo]
 
 # Configures the endpoint
 config :landing_page, LandingPageWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "sql490bc9EiK7VdO1EPJXkHLKtYUWmHHdOqBlSUv5RFhalJV44wVHwqwc88/CK1y",
   render_errors: [view: LandingPageWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: LandingPage.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: LandingPage.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -24,4 +22,4 @@ config :logger, :console,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

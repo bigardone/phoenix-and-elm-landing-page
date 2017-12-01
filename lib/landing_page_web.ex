@@ -28,8 +28,9 @@ defmodule LandingPageWeb do
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/landing_page_web/templates",
-                        namespace: LandingPageWeb
+      use Phoenix.View,
+        root: "lib/landing_page_web/templates",
+        namespace: LandingPageWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 2, view_module: 1]

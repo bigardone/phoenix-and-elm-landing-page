@@ -21,7 +21,11 @@ defmodule LandingPageWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", LandingPageWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", LandingPageWeb do
+    pipe_through(:api)
+
+    scope "/v1", V1 do
+      post("/leads", LeadController, :create)
+    end
+  end
 end

@@ -1,7 +1,7 @@
 import Elm from './elm/main';
 
-const elmContainer = document.querySelector('#elm_container');
+const formContainer = document.querySelector('#form_container');
 
-if (elmContainer) {
-  const app = Elm.Main.embed(elmContainer);
+if (formContainer) {
+  const app = Elm.Main.embed(formContainer);
 }

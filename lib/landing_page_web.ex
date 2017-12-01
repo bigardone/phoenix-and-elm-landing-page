@@ -23,6 +23,8 @@ defmodule LandingPageWeb do
       import Plug.Conn
       import LandingPageWeb.Router.Helpers
       import LandingPageWeb.Gettext
+
+      action_fallback(LandingPageWeb.FallbackController)
     end
   end
 

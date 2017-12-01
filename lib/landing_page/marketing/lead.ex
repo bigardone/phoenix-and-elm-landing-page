@@ -3,6 +3,8 @@ defmodule LandingPage.Marketing.Lead do
   import Ecto.Changeset
   alias LandingPage.Marketing.Lead
 
+  @derive {Poison.Encoder, only: [:full_name, :email]}
+
   schema "leads" do
     field(:email, :string)
     field(:full_name, :string)
@@ -15,5 +17,6 @@ defmodule LandingPage.Marketing.Lead do
     lead
     |> cast(attrs, [:full_name, :email])
     |> validate_required([:full_name, :email])
+    |> unique_constraint(:email)
   end
 end

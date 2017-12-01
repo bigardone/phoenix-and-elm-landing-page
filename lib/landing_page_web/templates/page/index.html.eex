@@ -1,3 +1,20 @@
-<div id="elm_container">
-
-</div>
+<div class="main-wrapper">
+  <div class="left">
+    <div class="hero">
+      <h1 class="title">Phoenix & Elm landing page</h1>
+      <p class="subtitle">Cool landing page message</p>
+    </div>
+    <div class="scroll-to">
+      <a class="icon">
+        <i class="fa fa-chevron-down"></i>
+      </a>
+    </div>
+  </div>
+	<div class="right" id="subscribe_form">
+    <section class="section">
+      <div class="container is-fluid">
+        <div id="form_container"></div>
+      </div>
+		</div>
+	</div>
+ </div>

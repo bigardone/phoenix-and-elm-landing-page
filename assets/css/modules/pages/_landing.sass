@@ -1,0 +1,128 @@
+.landing-page
+  .main-wrapper
+    +desktop
+      display: flex
+      height: 100vh
+
+    .left
+      align-items: center
+      background: linear-gradient(to top, rgba($red, .7) 0%, rgba($red, .7) 100%), url(/images/bg/home.jpg)
+      background-position: center
+      background-size: cover
+      position: relative
+      text-align: center
+      padding: 4rem 1rem
+
+      +mobile
+        height: 100vh
+        padding: 0
+        display: flex
+        flex-direction: column
+
+      +desktop
+        display: flex
+        flex: 1
+        padding: 4rem
+
+      .hero
+        width: 100%
+
+        +mobile
+          padding: 0 1em
+          flex: 1
+          display: flex
+          justify-content: center
+
+      .header
+        width: 100px
+        display: block
+        margin: 0 auto
+
+        +mobile
+          height: 6rem
+          display: flex
+          justify-content: center
+          align-items: center
+
+        +desktop
+          position: absolute
+          width: 100px
+          top: 4rem
+
+      .scroll-to
+        height: 5rem
+        .fa
+          color: $white
+          font-size: $size-2
+
+        +desktop
+          display: none
+
+      .title
+        color: $white
+        text-transform: uppercase
+        font-size: $size-2
+
+        +mobile
+          margin: 0 0 1.5em
+
+        +desktop
+          line-height: 2em
+
+      .subtitle
+        color: rgba($white, .7)
+
+        +desktop
+          font-size: $size-4
+          line-height: 1.5em
+
+      strong
+        color: $white
+
+    .right
+      align-items: center
+      padding: 1rem
+      padding: 1rem
+
+      #recaptcha
+        > iframe
+          width: 100%
+
+      +mobile
+        button
+          width: 100%
+
+      +desktop
+        display: flex
+        flex: 1
+        padding: 4rem
+
+        form
+          width: 70%
+
+      .control
+        margin-bottom: 1em
+
+        .select, select
+          width: 100%
+
+    .section
+      width: 100%
+
+    .success-message
+      text-align: center
+
+      +mobile
+        padding: 3rem 0
+
+      .fa
+        color: $red
+        font-size: 5em
+        margin-bottom: 1em
+
+      h2
+        font-size: $size-4
+        margin-bottom: 1em
+
+
+

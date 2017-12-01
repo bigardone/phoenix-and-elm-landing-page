@@ -54,6 +54,16 @@ exports.config = {
       outputFolder: '../js/elm',
       makeParameters: ['--warn', '--debug'],
     },
+    sass: {
+      mode: 'native',
+      sourceMapEmbed: true,
+      options: {
+        includePaths: [
+          'node_modules/normalize-scss/sass/',
+          'node_modules/bulma/',
+        ],
+      },
+    },
   },
 
   modules: {

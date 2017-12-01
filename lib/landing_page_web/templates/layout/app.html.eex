@@ -8,10 +8,12 @@
     <meta name="author" content="">
 
     <title>Hello LandingPage!</title>
+    <script async src="https://use.fontawesome.com/2aa13a4a25.js"></script>
+    <link rel="stylesheet" media="screen" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
-  <body>
+  <body class="landing-page">
     <%= render(@view_module, @view_template, assigns) %>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>

@@ -3,6 +3,6 @@ defmodule LandingPageWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")
-    assert html_response(conn, 200) =~ "Welcome to Phoenix!"
+    assert html_response(conn, 200) =~ "Phoenix & Elm landing page"
   end
 end

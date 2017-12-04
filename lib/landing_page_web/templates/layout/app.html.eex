@@ -16,5 +16,6 @@
   <body class="landing-page">
     <%= render(@view_module, @view_template, assigns) %>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
   </body>
 </html>

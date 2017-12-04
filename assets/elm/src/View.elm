@@ -115,6 +115,13 @@ formView subscribeForm =
                 , Html.div
                     [ Html.class "field" ]
                     [ Html.div
+                        [ Html.id "recaptcha" ]
+                        []
+                    , validationErrorView "recaptcha_token" validationErrors
+                    ]
+                , Html.div
+                    [ Html.class "field" ]
+                    [ Html.div
                         [ Html.class "control" ]
                         [ Html.button
                             [ Html.class "button is-primary is-medium"

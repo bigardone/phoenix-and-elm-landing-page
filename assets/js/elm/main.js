@@ -6614,7 +6614,16 @@ var _bigardone$phoenix_and_elm_subscription_form$Commands$encodeModel = function
 								_0: 'email',
 								_1: _elm_lang$core$Json_Encode$string(_p1.email)
 							},
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'recaptcha_token',
+									_1: _elm_lang$core$Json_Encode$string(
+										A2(_elm_lang$core$Maybe$withDefault, '', _p1.recaptchaToken))
+								},
+								_1: {ctor: '[]'}
+							}
 						}
 					})
 			},
@@ -13255,7 +13264,10 @@ var _bigardone$phoenix_and_elm_subscription_form$View$formView = function (subsc
 	var _p3 = _bigardone$phoenix_and_elm_subscription_form$Model$extractFormFields(subscribeForm);
 	var fullName = _p3.fullName;
 	var email = _p3.email;
-	var buttonDisabled = _elm_lang$core$Native_Utils.eq(fullName, '') || (_elm_lang$core$Native_Utils.eq(email, '') || (saving || invalid));
+	var recaptchaToken = _p3.recaptchaToken;
+	var buttonDisabled = _elm_lang$core$Native_Utils.eq(fullName, '') || (_elm_lang$core$Native_Utils.eq(email, '') || (_elm_lang$core$Native_Utils.eq(recaptchaToken, _elm_lang$core$Maybe$Nothing) || (_elm_lang$core$Native_Utils.eq(
+		recaptchaToken,
+		_elm_lang$core$Maybe$Just('')) || (saving || invalid))));
 	return A2(
 		_elm_lang$html$Html$div,
 		{

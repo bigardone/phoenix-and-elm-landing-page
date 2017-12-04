@@ -6539,7 +6539,7 @@ var _bigardone$phoenix_and_elm_subscription_form$Model$extractValidationErrors =
 		return _bigardone$phoenix_and_elm_subscription_form$Model$emptyValidationErrors;
 	}
 };
-var _bigardone$phoenix_and_elm_subscription_form$Model$emptyFormFields = {fullName: '', email: ''};
+var _bigardone$phoenix_and_elm_subscription_form$Model$emptyFormFields = {fullName: '', email: '', recaptchaToken: _elm_lang$core$Maybe$Nothing};
 var _bigardone$phoenix_and_elm_subscription_form$Model$extractFormFields = function (subscribeForm) {
 	var _p1 = subscribeForm;
 	switch (_p1.ctor) {
@@ -6555,9 +6555,9 @@ var _bigardone$phoenix_and_elm_subscription_form$Model$extractFormFields = funct
 			return _bigardone$phoenix_and_elm_subscription_form$Model$emptyFormFields;
 	}
 };
-var _bigardone$phoenix_and_elm_subscription_form$Model$FormFields = F2(
-	function (a, b) {
-		return {fullName: a, email: b};
+var _bigardone$phoenix_and_elm_subscription_form$Model$FormFields = F3(
+	function (a, b, c) {
+		return {fullName: a, email: b, recaptchaToken: c};
 	});
 var _bigardone$phoenix_and_elm_subscription_form$Model$Model = function (a) {
 	return {subscribeForm: a};
@@ -6578,8 +6578,7 @@ var _bigardone$phoenix_and_elm_subscription_form$Model$Editing = function (a) {
 	return {ctor: 'Editing', _0: a};
 };
 var _bigardone$phoenix_and_elm_subscription_form$Model$initialModel = {
-	subscribeForm: _bigardone$phoenix_and_elm_subscription_form$Model$Editing(
-		{fullName: '', email: ''})
+	subscribeForm: _bigardone$phoenix_and_elm_subscription_form$Model$Editing(_bigardone$phoenix_and_elm_subscription_form$Model$emptyFormFields)
 };
 
 var _bigardone$phoenix_and_elm_subscription_form$Decoders$validationErrorsDecoder = _elm_lang$core$Json_Decode$dict(

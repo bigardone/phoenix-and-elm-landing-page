@@ -1,5 +1,13 @@
-# LandingPage
+# Phoenix and Elm landing page
 
+![http://codeloveandboards.com/images/blog/phoenix-elm-landing-page/landing-page-9e2448ef.jpg](http://codeloveandboards.com/images/blog/phoenix-elm-landing-page/landing-page-9e2448ef.jpg)
+
+## Tutorial
+
+  1. [Bootstrapping the project and the basic API functionality to save our first leads](http://codeloveandboards.com/blog/2017/12/02/phoenix-elm-landing-page-pt-1/)
+  2. Coming soon...
+
+## Instructions
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`

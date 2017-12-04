@@ -23,6 +23,7 @@ initialModel =
         Editing
             { fullName = ""
             , email = ""
+            , recaptchaToken = Nothing
             }
     }
 

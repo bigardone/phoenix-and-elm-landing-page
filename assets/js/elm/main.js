@@ -6552,9 +6552,9 @@ var _bigardone$phoenix_and_elm_subscription_form$Model$extractFormFields = funct
 			return _p1._0;
 	}
 };
-var _bigardone$phoenix_and_elm_subscription_form$Model$FormFields = F2(
-	function (a, b) {
-		return {fullName: a, email: b};
+var _bigardone$phoenix_and_elm_subscription_form$Model$FormFields = F3(
+	function (a, b, c) {
+		return {fullName: a, email: b, recaptchaToken: c};
 	});
 var _bigardone$phoenix_and_elm_subscription_form$Model$Model = function (a) {
 	return {subscribeForm: a};
@@ -13557,7 +13557,7 @@ var _bigardone$phoenix_and_elm_subscription_form$Main$subscriptions = function (
 };
 var _bigardone$phoenix_and_elm_subscription_form$Main$initialModel = {
 	subscribeForm: _bigardone$phoenix_and_elm_subscription_form$Model$Editing(
-		{fullName: '', email: ''})
+		{fullName: '', email: '', recaptchaToken: _elm_lang$core$Maybe$Nothing})
 };
 var _bigardone$phoenix_and_elm_subscription_form$Main$init = A2(
 	_elm_lang$core$Platform_Cmd_ops['!'],

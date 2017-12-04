@@ -6,6 +6,7 @@ import Dict exposing (Dict)
 type alias FormFields =
     { fullName : String
     , email : String
+    , recaptchaToken : Maybe String
     }
 
 

@@ -9,14 +9,18 @@ defmodule LandingPage.Marketing.Lead do
     field(:email, :string)
     field(:full_name, :string)
 
+    field(:recaptcha_token, :string, virtual: true)
+
     timestamps()
   end
+
+  @fields ~w(full_name email recaptcha_token)a
 
   @doc false
   def changeset(%Lead{} = lead, attrs) do
     lead
-    |> cast(attrs, [:full_name, :email])
-    |> validate_required([:full_name, :email])
+    |> cast(attrs, @fields)
+    |> validate_required(@fields)
     |> unique_constraint(:email)
   end
 end

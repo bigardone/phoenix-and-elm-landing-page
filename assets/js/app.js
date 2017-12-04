@@ -16,5 +16,9 @@ window.onloadCallback = () => {
         });
       });
     });
+
+    app.ports.resetRecaptcha.subscribe(() => {
+      grecaptcha.reset(recaptcha);
+    });
   }
 };

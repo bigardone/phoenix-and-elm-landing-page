@@ -6,6 +6,7 @@ import Commands as Commands
 import Decoders exposing (validationErrorsDecoder)
 import Messages exposing (Msg(..))
 import Model exposing (..)
+import Ports
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -33,13 +34,13 @@ update msg model =
             SubscribeResponse (Err (BadStatus response)) ->
                 case Decode.decodeString validationErrorsDecoder response.body of
                     Ok validationErrors ->
-                        { model | subscribeForm = Invalid formFields validationErrors } ! []
+                        { model | subscribeForm = Invalid formFields validationErrors } ! [ Ports.resetRecaptcha () ]
 
                     Err error ->
-                        { model | subscribeForm = Invalid formFields emptyValidationErrors } ! []
+                        { model | subscribeForm = Invalid formFields emptyValidationErrors } ! [ Ports.resetRecaptcha () ]
 
             SubscribeResponse (Err error) ->
-                { model | subscribeForm = Invalid formFields emptyValidationErrors } ! []
+                { model | subscribeForm = Invalid formFields emptyValidationErrors } ! [ Ports.resetRecaptcha () ]
 
             SetRecaptchaToken token ->
                 { model | subscribeForm = Editing { formFields | recaptchaToken = Just token } } ! []

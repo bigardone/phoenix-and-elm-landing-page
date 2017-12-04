@@ -6,6 +6,9 @@ port module Ports exposing (..)
 port initRecaptcha : String -> Cmd msg
 
 
+port resetRecaptcha : () -> Cmd msg
+
+
 
 -- IN PORTS
 

@@ -12657,6 +12657,11 @@ var _bigardone$phoenix_and_elm_subscription_form$Ports$initRecaptcha = _elm_lang
 	function (v) {
 		return v;
 	});
+var _bigardone$phoenix_and_elm_subscription_form$Ports$resetRecaptcha = _elm_lang$core$Native_Platform.outgoingPort(
+	'resetRecaptcha',
+	function (v) {
+		return null;
+	});
 var _bigardone$phoenix_and_elm_subscription_form$Ports$setRecaptchaToken = _elm_lang$core$Native_Platform.incomingPort('setRecaptchaToken', _elm_lang$core$Json_Decode$string);
 
 var _bigardone$phoenix_and_elm_subscription_form$Update$update = F2(
@@ -12723,7 +12728,12 @@ var _bigardone$phoenix_and_elm_subscription_form$Update$update = F2(
 									{
 										subscribeForm: A2(_bigardone$phoenix_and_elm_subscription_form$Model$Invalid, formFields, _p1._0)
 									}),
-								{ctor: '[]'});
+								{
+									ctor: '::',
+									_0: _bigardone$phoenix_and_elm_subscription_form$Ports$resetRecaptcha(
+										{ctor: '_Tuple0'}),
+									_1: {ctor: '[]'}
+								});
 						} else {
 							return A2(
 								_elm_lang$core$Platform_Cmd_ops['!'],
@@ -12732,7 +12742,12 @@ var _bigardone$phoenix_and_elm_subscription_form$Update$update = F2(
 									{
 										subscribeForm: A2(_bigardone$phoenix_and_elm_subscription_form$Model$Invalid, formFields, _bigardone$phoenix_and_elm_subscription_form$Model$emptyValidationErrors)
 									}),
-								{ctor: '[]'});
+								{
+									ctor: '::',
+									_0: _bigardone$phoenix_and_elm_subscription_form$Ports$resetRecaptcha(
+										{ctor: '_Tuple0'}),
+									_1: {ctor: '[]'}
+								});
 						}
 					} else {
 						return A2(
@@ -12742,7 +12757,12 @@ var _bigardone$phoenix_and_elm_subscription_form$Update$update = F2(
 								{
 									subscribeForm: A2(_bigardone$phoenix_and_elm_subscription_form$Model$Invalid, formFields, _bigardone$phoenix_and_elm_subscription_form$Model$emptyValidationErrors)
 								}),
-							{ctor: '[]'});
+							{
+								ctor: '::',
+								_0: _bigardone$phoenix_and_elm_subscription_form$Ports$resetRecaptcha(
+									{ctor: '_Tuple0'}),
+								_1: {ctor: '[]'}
+							});
 					}
 				}
 			default:

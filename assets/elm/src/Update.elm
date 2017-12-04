@@ -44,3 +44,6 @@ update msg model =
 
             SubscribeResponse (Err error) ->
                 { model | subscribeForm = Errored formFields "Oops! Something went wrong!" } ! []
+
+            SetRecaptchaToken token ->
+                { model | subscribeForm = Editing { formFields | recaptchaToken = Just token } } ! []

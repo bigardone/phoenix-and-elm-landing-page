@@ -6585,6 +6585,9 @@ var _bigardone$phoenix_and_elm_subscription_form$Decoders$validationErrorsDecode
 	_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$string));
 var _bigardone$phoenix_and_elm_subscription_form$Decoders$responseDecoder = _elm_lang$core$Json_Decode$succeed(true);
 
+var _bigardone$phoenix_and_elm_subscription_form$Messages$SetRecaptchaToken = function (a) {
+	return {ctor: 'SetRecaptchaToken', _0: a};
+};
 var _bigardone$phoenix_and_elm_subscription_form$Messages$SubscribeResponse = function (a) {
 	return {ctor: 'SubscribeResponse', _0: a};
 };
@@ -12653,6 +12656,7 @@ var _bigardone$phoenix_and_elm_subscription_form$Ports$initRecaptcha = _elm_lang
 	function (v) {
 		return v;
 	});
+var _bigardone$phoenix_and_elm_subscription_form$Ports$setRecaptchaToken = _elm_lang$core$Native_Platform.incomingPort('setRecaptchaToken', _elm_lang$core$Json_Decode$string);
 
 var _bigardone$phoenix_and_elm_subscription_form$Update$update = F2(
 	function (msg, model) {
@@ -12696,7 +12700,7 @@ var _bigardone$phoenix_and_elm_subscription_form$Update$update = F2(
 						_0: _bigardone$phoenix_and_elm_subscription_form$Commands$subscribe(newSubscribeForm),
 						_1: {ctor: '[]'}
 					});
-			default:
+			case 'SubscribeResponse':
 				if (_p0._0.ctor === 'Ok') {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
@@ -12737,6 +12741,20 @@ var _bigardone$phoenix_and_elm_subscription_form$Update$update = F2(
 							{ctor: '[]'});
 					}
 				}
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							subscribeForm: _bigardone$phoenix_and_elm_subscription_form$Model$Editing(
+								_elm_lang$core$Native_Utils.update(
+									formFields,
+									{
+										recaptchaToken: _elm_lang$core$Maybe$Just(_p0._0)
+									}))
+						}),
+					{ctor: '[]'});
 		}
 	});
 
@@ -13612,7 +13630,12 @@ var _bigardone$phoenix_and_elm_subscription_form$View$view = function (_p5) {
 };
 
 var _bigardone$phoenix_and_elm_subscription_form$Main$subscriptions = function (model) {
-	return _elm_lang$core$Platform_Sub$none;
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: _bigardone$phoenix_and_elm_subscription_form$Ports$setRecaptchaToken(_bigardone$phoenix_and_elm_subscription_form$Messages$SetRecaptchaToken),
+			_1: {ctor: '[]'}
+		});
 };
 var _bigardone$phoenix_and_elm_subscription_form$Main$init = A2(
 	_elm_lang$core$Platform_Cmd_ops['!'],
@@ -13628,7 +13651,7 @@ var _bigardone$phoenix_and_elm_subscription_form$Main$main = _elm_lang$html$Html
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
 if (typeof _bigardone$phoenix_and_elm_subscription_form$Main$main !== 'undefined') {
-    _bigardone$phoenix_and_elm_subscription_form$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Messages.Msg":{"args":[],"tags":{"HandleFormSubmit":[],"HandleFullNameInput":["String"],"HandleEmailInput":["String"],"SubscribeResponse":["Result.Result Http.Error Bool"]}},"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}}},"aliases":{"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"}},"message":"Messages.Msg"},"versions":{"elm":"0.18.0"}});
+    _bigardone$phoenix_and_elm_subscription_form$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Messages.Msg":{"args":[],"tags":{"SetRecaptchaToken":["String"],"HandleFormSubmit":[],"HandleFullNameInput":["String"],"HandleEmailInput":["String"],"SubscribeResponse":["Result.Result Http.Error Bool"]}},"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}}},"aliases":{"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"}},"message":"Messages.Msg"},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])

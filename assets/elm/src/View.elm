@@ -35,7 +35,7 @@ view { subscribeForm } =
 formView : SubscribeForm -> Html Msg
 formView subscribeForm =
     let
-        { fullName, email } =
+        { fullName, email, recaptchaToken } =
             extractFormFields subscribeForm
 
         validationErrors =
@@ -62,6 +62,10 @@ formView subscribeForm =
                 == ""
                 || email
                 == ""
+                || recaptchaToken
+                == Nothing
+                || recaptchaToken
+                == Just ""
                 || saving
                 || invalid
     in

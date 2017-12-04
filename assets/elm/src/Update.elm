@@ -40,3 +40,6 @@ update msg model =
 
             SubscribeResponse (Err error) ->
                 { model | subscribeForm = Invalid formFields emptyValidationErrors } ! []
+
+            SetRecaptchaToken token ->
+                { model | subscribeForm = Editing { formFields | recaptchaToken = Just token } } ! []

@@ -36,4 +36,5 @@ init =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.batch []
+    Sub.batch
+        [ Ports.setRecaptchaToken SetRecaptchaToken ]

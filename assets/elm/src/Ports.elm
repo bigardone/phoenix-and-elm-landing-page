@@ -4,3 +4,10 @@ port module Ports exposing (..)
 
 
 port initRecaptcha : String -> Cmd msg
+
+
+
+-- IN PORTS
+
+
+port setRecaptchaToken : (String -> msg) -> Sub msg

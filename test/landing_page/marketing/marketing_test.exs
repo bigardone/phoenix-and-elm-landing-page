@@ -6,9 +6,13 @@ defmodule LandingPage.MarketingTest do
   describe "leads" do
     alias LandingPage.Marketing.Lead
 
-    @valid_attrs %{email: "some email", full_name: "some full_name"}
-    @update_attrs %{email: "some updated email", full_name: "some updated full_name"}
-    @invalid_attrs %{email: nil, full_name: nil}
+    @valid_attrs %{email: "some email", full_name: "some full_name", recaptcha_token: "foo"}
+    @update_attrs %{
+      email: "some updated email",
+      full_name: "some updated full_name",
+      recaptcha_token: "foo"
+    }
+    @invalid_attrs %{email: nil, full_name: nil, recaptcha_token: nil}
 
     def lead_fixture(attrs \\ %{}) do
       {:ok, lead} =
@@ -16,7 +20,7 @@ defmodule LandingPage.MarketingTest do
         |> Enum.into(@valid_attrs)
         |> Marketing.create_lead()
 
-      lead
+      %{lead | recaptcha_token: nil}
     end
 
     test "list_leads/0 returns all leads" do

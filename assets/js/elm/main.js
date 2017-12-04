@@ -12648,6 +12648,12 @@ var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
 
+var _bigardone$phoenix_and_elm_subscription_form$Ports$initRecaptcha = _elm_lang$core$Native_Platform.outgoingPort(
+	'initRecaptcha',
+	function (v) {
+		return v;
+	});
+
 var _bigardone$phoenix_and_elm_subscription_form$Update$update = F2(
 	function (msg, model) {
 		var formFields = _bigardone$phoenix_and_elm_subscription_form$Model$extractFormFields(model.subscribeForm);
@@ -13444,70 +13450,96 @@ var _bigardone$phoenix_and_elm_subscription_form$View$formView = function (subsc
 													_elm_lang$html$Html$div,
 													{
 														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$class('control'),
+														_0: _elm_lang$html$Html_Attributes$id('recaptcha'),
 														_1: {ctor: '[]'}
 													},
-													{
-														ctor: '::',
-														_0: A2(
-															_elm_lang$html$Html$button,
-															{
-																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$class('button is-primary is-medium'),
-																_1: {
+													{ctor: '[]'}),
+												_1: {
+													ctor: '::',
+													_0: A2(_bigardone$phoenix_and_elm_subscription_form$View$validationErrorView, 'recaptcha_token', validationErrors),
+													_1: {ctor: '[]'}
+												}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$div,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$class('field'),
+													_1: {ctor: '[]'}
+												},
+												{
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$div,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$class('control'),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$button,
+																{
 																	ctor: '::',
-																	_0: _elm_lang$html$Html_Attributes$disabled(buttonDisabled),
-																	_1: {ctor: '[]'}
-																}
-															},
-															{
-																ctor: '::',
-																_0: A2(
-																	_elm_lang$html$Html$span,
-																	{
+																	_0: _elm_lang$html$Html_Attributes$class('button is-primary is-medium'),
+																	_1: {
 																		ctor: '::',
-																		_0: _elm_lang$html$Html_Attributes$class('icon'),
+																		_0: _elm_lang$html$Html_Attributes$disabled(buttonDisabled),
 																		_1: {ctor: '[]'}
-																	},
-																	{
-																		ctor: '::',
-																		_0: A2(
-																			_elm_lang$html$Html$i,
-																			{
-																				ctor: '::',
-																				_0: _elm_lang$html$Html_Attributes$classList(
-																					{
-																						ctor: '::',
-																						_0: {ctor: '_Tuple2', _0: 'fa fa-check', _1: !saving},
-																						_1: {
-																							ctor: '::',
-																							_0: {ctor: '_Tuple2', _0: 'fa fa-circle-o-notch fa-spin', _1: saving},
-																							_1: {ctor: '[]'}
-																						}
-																					}),
-																				_1: {ctor: '[]'}
-																			},
-																			{ctor: '[]'}),
-																		_1: {ctor: '[]'}
-																	}),
-																_1: {
+																	}
+																},
+																{
 																	ctor: '::',
 																	_0: A2(
 																		_elm_lang$html$Html$span,
-																		{ctor: '[]'},
 																		{
 																			ctor: '::',
-																			_0: _elm_lang$html$Html$text('Subscribe me'),
+																			_0: _elm_lang$html$Html_Attributes$class('icon'),
+																			_1: {ctor: '[]'}
+																		},
+																		{
+																			ctor: '::',
+																			_0: A2(
+																				_elm_lang$html$Html$i,
+																				{
+																					ctor: '::',
+																					_0: _elm_lang$html$Html_Attributes$classList(
+																						{
+																							ctor: '::',
+																							_0: {ctor: '_Tuple2', _0: 'fa fa-check', _1: !saving},
+																							_1: {
+																								ctor: '::',
+																								_0: {ctor: '_Tuple2', _0: 'fa fa-circle-o-notch fa-spin', _1: saving},
+																								_1: {ctor: '[]'}
+																							}
+																						}),
+																					_1: {ctor: '[]'}
+																				},
+																				{ctor: '[]'}),
 																			_1: {ctor: '[]'}
 																		}),
-																	_1: {ctor: '[]'}
-																}
-															}),
-														_1: {ctor: '[]'}
-													}),
-												_1: {ctor: '[]'}
-											}),
-										_1: {ctor: '[]'}
+																	_1: {
+																		ctor: '::',
+																		_0: A2(
+																			_elm_lang$html$Html$span,
+																			{ctor: '[]'},
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html$text('Subscribe me'),
+																				_1: {ctor: '[]'}
+																			}),
+																		_1: {ctor: '[]'}
+																	}
+																}),
+															_1: {ctor: '[]'}
+														}),
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}
 									}
 								}
 							}),
@@ -13585,7 +13617,11 @@ var _bigardone$phoenix_and_elm_subscription_form$Main$subscriptions = function (
 var _bigardone$phoenix_and_elm_subscription_form$Main$init = A2(
 	_elm_lang$core$Platform_Cmd_ops['!'],
 	_bigardone$phoenix_and_elm_subscription_form$Model$initialModel,
-	{ctor: '[]'});
+	{
+		ctor: '::',
+		_0: _bigardone$phoenix_and_elm_subscription_form$Ports$initRecaptcha('recaptcha'),
+		_1: {ctor: '[]'}
+	});
 var _bigardone$phoenix_and_elm_subscription_form$Main$main = _elm_lang$html$Html$program(
 	{init: _bigardone$phoenix_and_elm_subscription_form$Main$init, view: _bigardone$phoenix_and_elm_subscription_form$View$view, update: _bigardone$phoenix_and_elm_subscription_form$Update$update, subscriptions: _bigardone$phoenix_and_elm_subscription_form$Main$subscriptions})();
 

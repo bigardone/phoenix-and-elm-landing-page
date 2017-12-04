@@ -13470,7 +13470,7 @@ var _bigardone$phoenix_and_elm_subscription_form$View$formView = function (subsc
 																	{ctor: '[]'},
 																	{
 																		ctor: '::',
-																		_0: _elm_lang$html$Html$text('Subscrime me'),
+																		_0: _elm_lang$html$Html$text('Subscribe me'),
 																		_1: {ctor: '[]'}
 																	}),
 																_1: {ctor: '[]'}

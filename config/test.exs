@@ -17,3 +17,6 @@ config :landing_page, LandingPage.Repo,
   database: "landing_page_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :landing_page,
+  google_recaptcha_client: LandingPage.Clients.GoogleRecaptchaMock

@@ -9,6 +9,7 @@ window.onloadCallback = () => {
     app.ports.initRecaptcha.subscribe(id => {
       window.requestAnimationFrame(() => {
         recaptcha = grecaptcha.render(id, {
+          hl: 'en',
           sitekey: '6LcLWzoUAAAAAAkeT3oWaJ3JS2Rxa0E-f0PzC45W',
           callback: result => {
             app.ports.setRecaptchaToken.send(result);

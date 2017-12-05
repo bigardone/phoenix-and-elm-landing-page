@@ -3,7 +3,6 @@ defmodule LandingPage.Clients.GoogleRecaptchaMock do
   Google recaptcha mock client
   """
 
-  def verify_site(_token) do
-    {:ok, %{success: true}}
-  end
+  def verify_site("invalid"), do: {:ok, %{success: false}}
+  def verify_site(_token), do: {:ok, %{success: true}}
 end

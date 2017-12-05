@@ -6,7 +6,11 @@ defmodule LandingPage.MarketingTest do
   describe "leads" do
     alias LandingPage.Marketing.Lead
 
-    @valid_attrs %{email: "some email", full_name: "some full_name", recaptcha_token: "foo"}
+    @valid_attrs %{
+      "email" => "some email",
+      "full_name" => "some full_name",
+      "recaptcha_token" => "foo"
+    }
     @invalid_attrs %{email: nil, full_name: nil, recaptcha_token: nil}
 
     def lead_fixture(attrs \\ %{}) do
@@ -26,6 +30,15 @@ defmodule LandingPage.MarketingTest do
 
     test "create_lead/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Marketing.create_lead(@invalid_attrs)
+    end
+
+    test "subscribe/1 with valid data and token creates a lead" do
+      assert {:ok, %Lead{}} = Marketing.subscribe(@valid_attrs)
+    end
+
+    test "subscribe/1 with invalid token returns error changeset" do
+      params = %{@valid_attrs | "recaptcha_token" => "invalid"}
+      assert {:error, :invalid_recaptcha_token} = Marketing.subscribe(params)
     end
   end
 end

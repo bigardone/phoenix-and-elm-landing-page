@@ -16,12 +16,12 @@ defmodule LandingPage.Clients.GoogleRecaptchaHttp do
     "/siteverify"
     |> get!([], params: params)
     |> case do
-      %{status_code: 200, body: body} ->
-        {:ok, body}
+         %{status_code: 200, body: body} ->
+           {:ok, body}
 
-      response ->
-        {:error, response}
-    end
+         response ->
+           {:error, response}
+       end
   end
 
   def process_url(url) do
@@ -30,8 +30,8 @@ defmodule LandingPage.Clients.GoogleRecaptchaHttp do
 
   def process_response_body(body) do
     body
-    |> Poison.decode!
-    |> Enum.map(fn({k, v}) -> {String.to_atom(k), v} end)
+    |> Poison.decode!()
+    |> Enum.map(fn {k, v} -> {String.to_atom(k), v} end)
     |> Enum.into(%{})
   end
 end

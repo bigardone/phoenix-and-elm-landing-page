@@ -13,11 +13,11 @@
       </a>
     </div>
   </div>
-	<div class="right" id="subscribe_form">
+  <div class="right" id="subscribe_form">
     <section class="section">
       <div class="container is-fluid">
         <div id="form_container"></div>
       </div>
-		</div>
-	</div>
- </div>
+    </section>
+  </div>
+</div>

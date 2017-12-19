@@ -6571,6 +6571,10 @@ var _bigardone$phoenix_and_elm_subscription_form$Model$Saving = function (a) {
 var _bigardone$phoenix_and_elm_subscription_form$Model$Editing = function (a) {
 	return {ctor: 'Editing', _0: a};
 };
+var _bigardone$phoenix_and_elm_subscription_form$Model$initialModel = {
+	subscribeForm: _bigardone$phoenix_and_elm_subscription_form$Model$Editing(
+		{fullName: '', email: ''})
+};
 
 var _bigardone$phoenix_and_elm_subscription_form$Decoders$validationErrorsDecoder = _elm_lang$core$Json_Decode$dict(
 	_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$string));
@@ -13552,13 +13556,9 @@ var _bigardone$phoenix_and_elm_subscription_form$Main$subscriptions = function (
 	return _elm_lang$core$Platform_Sub$batch(
 		{ctor: '[]'});
 };
-var _bigardone$phoenix_and_elm_subscription_form$Main$initialModel = {
-	subscribeForm: _bigardone$phoenix_and_elm_subscription_form$Model$Editing(
-		{fullName: '', email: ''})
-};
 var _bigardone$phoenix_and_elm_subscription_form$Main$init = A2(
 	_elm_lang$core$Platform_Cmd_ops['!'],
-	_bigardone$phoenix_and_elm_subscription_form$Main$initialModel,
+	_bigardone$phoenix_and_elm_subscription_form$Model$initialModel,
 	{ctor: '[]'});
 var _bigardone$phoenix_and_elm_subscription_form$Main$main = _elm_lang$html$Html$program(
 	{init: _bigardone$phoenix_and_elm_subscription_form$Main$init, view: _bigardone$phoenix_and_elm_subscription_form$View$view, update: _bigardone$phoenix_and_elm_subscription_form$Update$update, subscriptions: _bigardone$phoenix_and_elm_subscription_form$Main$subscriptions})();

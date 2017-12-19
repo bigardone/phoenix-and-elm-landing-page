@@ -17,16 +17,6 @@ main =
         }
 
 
-initialModel : Model
-initialModel =
-    { subscribeForm =
-        Editing
-            { fullName = ""
-            , email = ""
-            }
-    }
-
-
 init : ( Model, Cmd Msg )
 init =
     initialModel ! []

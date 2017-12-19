@@ -60,3 +60,13 @@ extractValidationErrors subscribeForm =
 emptyValidationErrors : ValidationErrors
 emptyValidationErrors =
     Dict.empty
+
+
+initialModel : Model
+initialModel =
+    { subscribeForm =
+        Editing
+            { fullName = ""
+            , email = ""
+            }
+    }

@@ -11,7 +11,7 @@ import Model exposing (..)
 view : Model -> Html Msg
 view { subscribeForm } =
     case subscribeForm of
-        Success _ ->
+        Success ->
             Html.div
                 [ Html.class "success-message" ]
                 [ Html.div

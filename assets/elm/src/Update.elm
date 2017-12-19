@@ -28,7 +28,7 @@ update msg model =
                 { model | subscribeForm = Saving formFields } ! [ Commands.subscribe subscribeForm ]
 
             SubscribeResponse (Ok result) ->
-                { model | subscribeForm = Success formFields } ! []
+                { model | subscribeForm = Success } ! []
 
             SubscribeResponse (Err (BadStatus response)) ->
                 case Decode.decodeString validationErrorsDecoder response.body of

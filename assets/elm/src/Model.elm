@@ -17,7 +17,7 @@ type SubscribeForm
     = Editing FormFields
     | Saving FormFields
     | Invalid FormFields ValidationErrors
-    | Success FormFields
+    | Success
 
 
 type alias Model =
@@ -36,8 +36,15 @@ extractFormFields subscribeForm =
         Invalid ff _ ->
             ff
 
-        Success ff ->
-            ff
+        Success ->
+            emptyFormFields
+
+
+emptyFormFields : FormFields
+emptyFormFields =
+    { fullName = ""
+    , email = ""
+    }
 
 
 extractValidationErrors : SubscribeForm -> ValidationErrors

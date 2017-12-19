@@ -6539,6 +6539,7 @@ var _bigardone$phoenix_and_elm_subscription_form$Model$extractValidationErrors =
 		return _bigardone$phoenix_and_elm_subscription_form$Model$emptyValidationErrors;
 	}
 };
+var _bigardone$phoenix_and_elm_subscription_form$Model$emptyFormFields = {fullName: '', email: ''};
 var _bigardone$phoenix_and_elm_subscription_form$Model$extractFormFields = function (subscribeForm) {
 	var _p1 = subscribeForm;
 	switch (_p1.ctor) {
@@ -6549,7 +6550,7 @@ var _bigardone$phoenix_and_elm_subscription_form$Model$extractFormFields = funct
 		case 'Invalid':
 			return _p1._0;
 		default:
-			return _p1._0;
+			return _bigardone$phoenix_and_elm_subscription_form$Model$emptyFormFields;
 	}
 };
 var _bigardone$phoenix_and_elm_subscription_form$Model$FormFields = F2(
@@ -6559,9 +6560,7 @@ var _bigardone$phoenix_and_elm_subscription_form$Model$FormFields = F2(
 var _bigardone$phoenix_and_elm_subscription_form$Model$Model = function (a) {
 	return {subscribeForm: a};
 };
-var _bigardone$phoenix_and_elm_subscription_form$Model$Success = function (a) {
-	return {ctor: 'Success', _0: a};
-};
+var _bigardone$phoenix_and_elm_subscription_form$Model$Success = {ctor: 'Success'};
 var _bigardone$phoenix_and_elm_subscription_form$Model$Invalid = F2(
 	function (a, b) {
 		return {ctor: 'Invalid', _0: a, _1: b};
@@ -12689,9 +12688,7 @@ var _bigardone$phoenix_and_elm_subscription_form$Update$update = F2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
-							{
-								subscribeForm: _bigardone$phoenix_and_elm_subscription_form$Model$Success(formFields)
-							}),
+							{subscribeForm: _bigardone$phoenix_and_elm_subscription_form$Model$Success}),
 						{ctor: '[]'});
 				} else {
 					if (_p0._0._0.ctor === 'BadStatus') {

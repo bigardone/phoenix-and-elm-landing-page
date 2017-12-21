@@ -36,7 +36,15 @@ update msg model =
                         { model | subscribeForm = Invalid formFields validationErrors } ! []
 
                     Err error ->
-                        { model | subscribeForm = Invalid formFields emptyValidationErrors } ! []
+                        let
+                            _ =
+                                Debug.log "Decoder error" error
+                        in
+                            { model | subscribeForm = Invalid formFields emptyValidationErrors } ! []
 
             SubscribeResponse (Err error) ->
-                { model | subscribeForm = Invalid formFields emptyValidationErrors } ! []
+                let
+                    _ =
+                        Debug.log "Response error" error
+                in
+                    { model | subscribeForm = Invalid formFields emptyValidationErrors } ! []

@@ -24,4 +24,4 @@ init =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.batch []
+    Sub.none

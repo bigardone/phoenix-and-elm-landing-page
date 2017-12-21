@@ -1,6 +1,5 @@
 module Commands exposing (subscribe)
 
-import Dict exposing (Dict)
 import Http
 import Json.Decode as JD
 import Json.Encode as JE
@@ -19,7 +18,7 @@ subscribe subscribeForm =
             Cmd.none
 
 
-post : FormFields -> Http.Request (Dict String String)
+post : FormFields -> Http.Request Bool
 post formFields =
     Http.request
         { method = "POST"

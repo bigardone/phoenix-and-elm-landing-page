@@ -6549,6 +6549,8 @@ var _bigardone$phoenix_and_elm_subscription_form$Model$extractFormFields = funct
 			return _p1._0;
 		case 'Invalid':
 			return _p1._0;
+		case 'Errored':
+			return _p1._0;
 		default:
 			return _bigardone$phoenix_and_elm_subscription_form$Model$emptyFormFields;
 	}
@@ -6561,6 +6563,10 @@ var _bigardone$phoenix_and_elm_subscription_form$Model$Model = function (a) {
 	return {subscribeForm: a};
 };
 var _bigardone$phoenix_and_elm_subscription_form$Model$Success = {ctor: 'Success'};
+var _bigardone$phoenix_and_elm_subscription_form$Model$Errored = F2(
+	function (a, b) {
+		return {ctor: 'Errored', _0: a, _1: b};
+	});
 var _bigardone$phoenix_and_elm_subscription_form$Model$Invalid = F2(
 	function (a, b) {
 		return {ctor: 'Invalid', _0: a, _1: b};
@@ -6636,7 +6642,7 @@ var _bigardone$phoenix_and_elm_subscription_form$Commands$post = function (formF
 };
 var _bigardone$phoenix_and_elm_subscription_form$Commands$subscribe = function (subscribeForm) {
 	var _p2 = subscribeForm;
-	if (_p2.ctor === 'Editing') {
+	if (_p2.ctor === 'Saving') {
 		return A2(
 			_elm_lang$http$Http$send,
 			_bigardone$phoenix_and_elm_subscription_form$Messages$SubscribeResponse,
@@ -12674,16 +12680,15 @@ var _bigardone$phoenix_and_elm_subscription_form$Update$update = F2(
 						}),
 					{ctor: '[]'});
 			case 'HandleFormSubmit':
+				var newSubscribeForm = _bigardone$phoenix_and_elm_subscription_form$Model$Saving(formFields);
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{
-							subscribeForm: _bigardone$phoenix_and_elm_subscription_form$Model$Saving(formFields)
-						}),
+						{subscribeForm: newSubscribeForm}),
 					{
 						ctor: '::',
-						_0: _bigardone$phoenix_and_elm_subscription_form$Commands$subscribe(subscribeForm),
+						_0: _bigardone$phoenix_and_elm_subscription_form$Commands$subscribe(newSubscribeForm),
 						_1: {ctor: '[]'}
 					});
 			default:
@@ -12712,7 +12717,7 @@ var _bigardone$phoenix_and_elm_subscription_form$Update$update = F2(
 								_elm_lang$core$Native_Utils.update(
 									model,
 									{
-										subscribeForm: A2(_bigardone$phoenix_and_elm_subscription_form$Model$Invalid, formFields, _bigardone$phoenix_and_elm_subscription_form$Model$emptyValidationErrors)
+										subscribeForm: A2(_bigardone$phoenix_and_elm_subscription_form$Model$Errored, formFields, 'Oops! Something went wrong!')
 									}),
 								{ctor: '[]'});
 						}
@@ -12722,7 +12727,7 @@ var _bigardone$phoenix_and_elm_subscription_form$Update$update = F2(
 							_elm_lang$core$Native_Utils.update(
 								model,
 								{
-									subscribeForm: A2(_bigardone$phoenix_and_elm_subscription_form$Model$Invalid, formFields, _bigardone$phoenix_and_elm_subscription_form$Model$emptyValidationErrors)
+									subscribeForm: A2(_bigardone$phoenix_and_elm_subscription_form$Model$Errored, formFields, 'Oops! Something went wrong!')
 								}),
 							{ctor: '[]'});
 					}
@@ -13195,10 +13200,29 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
+var _bigardone$phoenix_and_elm_subscription_form$View$formError = function (subscribeForm) {
+	var _p0 = subscribeForm;
+	if (_p0.ctor === 'Errored') {
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('notification is-danger fade-in'),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(_p0._1),
+				_1: {ctor: '[]'}
+			});
+	} else {
+		return _elm_lang$html$Html$text('');
+	}
+};
 var _bigardone$phoenix_and_elm_subscription_form$View$validationErrorView = F2(
 	function (key, validationErrors) {
-		var _p0 = A2(_elm_lang$core$Dict$get, key, validationErrors);
-		if (_p0.ctor === 'Just') {
+		var _p1 = A2(_elm_lang$core$Dict$get, key, validationErrors);
+		if (_p1.ctor === 'Just') {
 			return A2(
 				_elm_lang$html$Html$p,
 				{
@@ -13206,32 +13230,32 @@ var _bigardone$phoenix_and_elm_subscription_form$View$validationErrorView = F2(
 					_0: _elm_lang$html$Html_Attributes$class('help is-danger'),
 					_1: {ctor: '[]'}
 				},
-				A2(_elm_lang$core$List$map, _elm_lang$html$Html$text, _p0._0));
+				A2(_elm_lang$core$List$map, _elm_lang$html$Html$text, _p1._0));
 		} else {
 			return _elm_lang$html$Html$text('');
 		}
 	});
 var _bigardone$phoenix_and_elm_subscription_form$View$formView = function (subscribeForm) {
 	var invalid = function () {
-		var _p1 = subscribeForm;
-		if (_p1.ctor === 'Invalid') {
+		var _p2 = subscribeForm;
+		if (_p2.ctor === 'Invalid') {
 			return true;
 		} else {
 			return false;
 		}
 	}();
 	var saving = function () {
-		var _p2 = subscribeForm;
-		if (_p2.ctor === 'Saving') {
+		var _p3 = subscribeForm;
+		if (_p3.ctor === 'Saving') {
 			return true;
 		} else {
 			return false;
 		}
 	}();
 	var validationErrors = _bigardone$phoenix_and_elm_subscription_form$Model$extractValidationErrors(subscribeForm);
-	var _p3 = _bigardone$phoenix_and_elm_subscription_form$Model$extractFormFields(subscribeForm);
-	var fullName = _p3.fullName;
-	var email = _p3.email;
+	var _p4 = _bigardone$phoenix_and_elm_subscription_form$Model$extractFormFields(subscribeForm);
+	var fullName = _p4.fullName;
+	var email = _p4.email;
 	var buttonDisabled = _elm_lang$core$Native_Utils.eq(fullName, '') || (_elm_lang$core$Native_Utils.eq(email, '') || (saving || invalid));
 	return A2(
 		_elm_lang$html$Html$div,
@@ -13262,79 +13286,17 @@ var _bigardone$phoenix_and_elm_subscription_form$View$formView = function (subsc
 					}),
 				_1: {
 					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$form,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Events$onSubmit(_bigardone$phoenix_and_elm_subscription_form$Messages$HandleFormSubmit),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$div,
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$class('field'),
-									_1: {ctor: '[]'}
-								},
-								{
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$div,
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$class('control'),
-											_1: {ctor: '[]'}
-										},
-										{
-											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$input,
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$classList(
-														{
-															ctor: '::',
-															_0: {ctor: '_Tuple2', _0: 'input is-medium', _1: true},
-															_1: {
-																ctor: '::',
-																_0: {
-																	ctor: '_Tuple2',
-																	_0: 'is-danger',
-																	_1: A2(_elm_lang$core$Dict$member, 'full_name', validationErrors)
-																},
-																_1: {ctor: '[]'}
-															}
-														}),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$placeholder('My name is...'),
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$required(true),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$value(fullName),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$html$Html_Events$onInput(_bigardone$phoenix_and_elm_subscription_form$Messages$HandleFullNameInput),
-																	_1: {ctor: '[]'}
-																}
-															}
-														}
-													}
-												},
-												{ctor: '[]'}),
-											_1: {
-												ctor: '::',
-												_0: A2(_bigardone$phoenix_and_elm_subscription_form$View$validationErrorView, 'full_name', validationErrors),
-												_1: {ctor: '[]'}
-											}
-										}),
-									_1: {ctor: '[]'}
-								}),
-							_1: {
+					_0: _bigardone$phoenix_and_elm_subscription_form$View$formError(subscribeForm),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$form,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onSubmit(_bigardone$phoenix_and_elm_subscription_form$Messages$HandleFormSubmit),
+								_1: {ctor: '[]'}
+							},
+							{
 								ctor: '::',
 								_0: A2(
 									_elm_lang$html$Html$div,
@@ -13367,28 +13329,24 @@ var _bigardone$phoenix_and_elm_subscription_form$View$formView = function (subsc
 																	_0: {
 																		ctor: '_Tuple2',
 																		_0: 'is-danger',
-																		_1: A2(_elm_lang$core$Dict$member, 'email', validationErrors)
+																		_1: A2(_elm_lang$core$Dict$member, 'full_name', validationErrors)
 																	},
 																	_1: {ctor: '[]'}
 																}
 															}),
 														_1: {
 															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$type_('email'),
+															_0: _elm_lang$html$Html_Attributes$placeholder('My name is...'),
 															_1: {
 																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$placeholder('My email address is...'),
+																_0: _elm_lang$html$Html_Attributes$required(true),
 																_1: {
 																	ctor: '::',
-																	_0: _elm_lang$html$Html_Attributes$required(true),
+																	_0: _elm_lang$html$Html_Attributes$value(fullName),
 																	_1: {
 																		ctor: '::',
-																		_0: _elm_lang$html$Html_Attributes$value(email),
-																		_1: {
-																			ctor: '::',
-																			_0: _elm_lang$html$Html_Events$onInput(_bigardone$phoenix_and_elm_subscription_form$Messages$HandleEmailInput),
-																			_1: {ctor: '[]'}
-																		}
+																		_0: _elm_lang$html$Html_Events$onInput(_bigardone$phoenix_and_elm_subscription_form$Messages$HandleFullNameInput),
+																		_1: {ctor: '[]'}
 																	}
 																}
 															}
@@ -13397,7 +13355,7 @@ var _bigardone$phoenix_and_elm_subscription_form$View$formView = function (subsc
 													{ctor: '[]'}),
 												_1: {
 													ctor: '::',
-													_0: A2(_bigardone$phoenix_and_elm_subscription_form$View$validationErrorView, 'email', validationErrors),
+													_0: A2(_bigardone$phoenix_and_elm_subscription_form$View$validationErrorView, 'full_name', validationErrors),
 													_1: {ctor: '[]'}
 												}
 											}),
@@ -13424,77 +13382,147 @@ var _bigardone$phoenix_and_elm_subscription_form$View$formView = function (subsc
 												{
 													ctor: '::',
 													_0: A2(
-														_elm_lang$html$Html$button,
+														_elm_lang$html$Html$input,
 														{
 															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$class('button is-primary is-medium'),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$disabled(buttonDisabled),
-																_1: {ctor: '[]'}
-															}
-														},
-														{
-															ctor: '::',
-															_0: A2(
-																_elm_lang$html$Html$span,
+															_0: _elm_lang$html$Html_Attributes$classList(
 																{
 																	ctor: '::',
-																	_0: _elm_lang$html$Html_Attributes$class('icon'),
-																	_1: {ctor: '[]'}
-																},
-																{
-																	ctor: '::',
-																	_0: A2(
-																		_elm_lang$html$Html$i,
-																		{
-																			ctor: '::',
-																			_0: _elm_lang$html$Html_Attributes$classList(
-																				{
-																					ctor: '::',
-																					_0: {ctor: '_Tuple2', _0: 'fa fa-check', _1: !saving},
-																					_1: {
-																						ctor: '::',
-																						_0: {ctor: '_Tuple2', _0: 'fa fa-circle-o-notch fa-spin', _1: saving},
-																						_1: {ctor: '[]'}
-																					}
-																				}),
-																			_1: {ctor: '[]'}
+																	_0: {ctor: '_Tuple2', _0: 'input is-medium', _1: true},
+																	_1: {
+																		ctor: '::',
+																		_0: {
+																			ctor: '_Tuple2',
+																			_0: 'is-danger',
+																			_1: A2(_elm_lang$core$Dict$member, 'email', validationErrors)
 																		},
-																		{ctor: '[]'}),
-																	_1: {ctor: '[]'}
+																		_1: {ctor: '[]'}
+																	}
 																}),
 															_1: {
 																ctor: '::',
-																_0: A2(
-																	_elm_lang$html$Html$span,
-																	{ctor: '[]'},
-																	{
+																_0: _elm_lang$html$Html_Attributes$type_('email'),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$placeholder('My email address is...'),
+																	_1: {
 																		ctor: '::',
-																		_0: _elm_lang$html$Html$text('Subscribe me'),
-																		_1: {ctor: '[]'}
-																	}),
-																_1: {ctor: '[]'}
+																		_0: _elm_lang$html$Html_Attributes$required(true),
+																		_1: {
+																			ctor: '::',
+																			_0: _elm_lang$html$Html_Attributes$value(email),
+																			_1: {
+																				ctor: '::',
+																				_0: _elm_lang$html$Html_Events$onInput(_bigardone$phoenix_and_elm_subscription_form$Messages$HandleEmailInput),
+																				_1: {ctor: '[]'}
+																			}
+																		}
+																	}
+																}
 															}
-														}),
-													_1: {ctor: '[]'}
+														},
+														{ctor: '[]'}),
+													_1: {
+														ctor: '::',
+														_0: A2(_bigardone$phoenix_and_elm_subscription_form$View$validationErrorView, 'email', validationErrors),
+														_1: {ctor: '[]'}
+													}
 												}),
 											_1: {ctor: '[]'}
 										}),
-									_1: {ctor: '[]'}
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$div,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$class('field'),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$div,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$class('control'),
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$button,
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$class('button is-primary is-medium'),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$disabled(buttonDisabled),
+																	_1: {ctor: '[]'}
+																}
+															},
+															{
+																ctor: '::',
+																_0: A2(
+																	_elm_lang$html$Html$span,
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html_Attributes$class('icon'),
+																		_1: {ctor: '[]'}
+																	},
+																	{
+																		ctor: '::',
+																		_0: A2(
+																			_elm_lang$html$Html$i,
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html_Attributes$classList(
+																					{
+																						ctor: '::',
+																						_0: {ctor: '_Tuple2', _0: 'fa fa-check', _1: !saving},
+																						_1: {
+																							ctor: '::',
+																							_0: {ctor: '_Tuple2', _0: 'fa fa-circle-o-notch fa-spin', _1: saving},
+																							_1: {ctor: '[]'}
+																						}
+																					}),
+																				_1: {ctor: '[]'}
+																			},
+																			{ctor: '[]'}),
+																		_1: {ctor: '[]'}
+																	}),
+																_1: {
+																	ctor: '::',
+																	_0: A2(
+																		_elm_lang$html$Html$span,
+																		{ctor: '[]'},
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html$text('Subscribe me'),
+																			_1: {ctor: '[]'}
+																		}),
+																	_1: {ctor: '[]'}
+																}
+															}),
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
 								}
-							}
-						}),
-					_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
 				}
 			}
 		});
 };
-var _bigardone$phoenix_and_elm_subscription_form$View$view = function (_p4) {
-	var _p5 = _p4;
-	var _p7 = _p5.subscribeForm;
-	var _p6 = _p7;
-	if (_p6.ctor === 'Success') {
+var _bigardone$phoenix_and_elm_subscription_form$View$view = function (_p5) {
+	var _p6 = _p5;
+	var _p8 = _p6.subscribeForm;
+	var _p7 = _p8;
+	if (_p7.ctor === 'Success') {
 		return A2(
 			_elm_lang$html$Html$div,
 			{
@@ -13548,7 +13576,7 @@ var _bigardone$phoenix_and_elm_subscription_form$View$view = function (_p4) {
 				}
 			});
 	} else {
-		return _bigardone$phoenix_and_elm_subscription_form$View$formView(_p7);
+		return _bigardone$phoenix_and_elm_subscription_form$View$formView(_p8);
 	}
 };
 

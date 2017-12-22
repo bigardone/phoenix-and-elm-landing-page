@@ -17,6 +17,7 @@ type SubscribeForm
     = Editing FormFields
     | Saving FormFields
     | Invalid FormFields ValidationErrors
+    | Errored FormFields String
     | Success
 
 
@@ -34,6 +35,9 @@ extractFormFields subscribeForm =
             ff
 
         Invalid ff _ ->
+            ff
+
+        Errored ff _ ->
             ff
 
         Success ->

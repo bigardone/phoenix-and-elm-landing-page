@@ -25,7 +25,11 @@ update msg model =
                 { model | subscribeForm = Editing { formFields | email = value } } ! []
 
             HandleFormSubmit ->
-                { model | subscribeForm = Saving formFields } ! [ Commands.subscribe subscribeForm ]
+                let
+                    newSubscribeForm =
+                        Saving formFields
+                in
+                    { model | subscribeForm = newSubscribeForm } ! [ Commands.subscribe newSubscribeForm ]
 
             SubscribeResponse (Ok result) ->
                 { model | subscribeForm = Success } ! []
@@ -36,15 +40,7 @@ update msg model =
                         { model | subscribeForm = Invalid formFields validationErrors } ! []
 
                     Err error ->
-                        let
-                            _ =
-                                Debug.log "Decoder error" error
-                        in
-                            { model | subscribeForm = Invalid formFields emptyValidationErrors } ! []
+                        { model | subscribeForm = Errored formFields "Oops! Something went wrong!" } ! []
 
             SubscribeResponse (Err error) ->
-                let
-                    _ =
-                        Debug.log "Response error" error
-                in
-                    { model | subscribeForm = Invalid formFields emptyValidationErrors } ! []
+                { model | subscribeForm = Errored formFields "Oops! Something went wrong!" } ! []

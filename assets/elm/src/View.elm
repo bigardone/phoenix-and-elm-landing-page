@@ -73,6 +73,7 @@ formView subscribeForm =
             , Html.p
                 []
                 [ Html.text "Subscribe to stay updated" ]
+            , formError subscribeForm
             , form
                 [ Html.onSubmit HandleFormSubmit ]
                 [ Html.div
@@ -150,4 +151,16 @@ validationErrorView key validationErrors =
                     [ Html.class "help is-danger" ]
 
         Nothing ->
+            Html.text ""
+
+
+formError : SubscribeForm -> Html Msg
+formError subscribeForm =
+    case subscribeForm of
+        Errored _ message ->
+            Html.div
+                [ Html.class "notification is-danger fade-in" ]
+                [ Html.text message ]
+
+        _ ->
             Html.text ""

@@ -11,7 +11,7 @@ import Model exposing (SubscribeForm(..), FormFields)
 subscribe : SubscribeForm -> Cmd Msg
 subscribe subscribeForm =
     case subscribeForm of
-        Editing formFields ->
+        Saving formFields ->
             Http.send SubscribeResponse (post formFields)
 
         _ ->

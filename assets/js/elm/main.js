@@ -13662,12 +13662,7 @@ var _bigardone$phoenix_and_elm_subscription_form$View$view = function (_p5) {
 };
 
 var _bigardone$phoenix_and_elm_subscription_form$Main$subscriptions = function (model) {
-	return _elm_lang$core$Platform_Sub$batch(
-		{
-			ctor: '::',
-			_0: _bigardone$phoenix_and_elm_subscription_form$Ports$setRecaptchaToken(_bigardone$phoenix_and_elm_subscription_form$Messages$SetRecaptchaToken),
-			_1: {ctor: '[]'}
-		});
+	return _bigardone$phoenix_and_elm_subscription_form$Ports$setRecaptchaToken(_bigardone$phoenix_and_elm_subscription_form$Messages$SetRecaptchaToken);
 };
 var _bigardone$phoenix_and_elm_subscription_form$Main$init = A2(
 	_elm_lang$core$Platform_Cmd_ops['!'],

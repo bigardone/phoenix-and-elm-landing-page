@@ -3,9 +3,10 @@ defmodule LandingPage.Marketing do
   The Marketing context.
   """
 
-  alias LandingPage.Repo
-
-  alias LandingPage.Marketing.Lead
+  alias LandingPage.{
+    Marketing.Lead,
+    Repo
+  }
 
   @google_recaptcha_client Application.get_env(:landing_page, :google_recaptcha_client)
 
@@ -16,8 +17,9 @@ defmodule LandingPage.Marketing do
   def subscribe(lead_params) do
     token = Map.get(lead_params, "recaptcha_token")
 
-    with {:ok, %{success: true}} <- @google_recaptcha_client.verify_site(token),
-         {:ok, lead} <- create_lead(lead_params) do
+    with %Ecto.Changeset{valid?: true} = changeset <- Lead.changeset(%Lead{}, lead_params),
+         {:ok, %{success: true}} <- @google_recaptcha_client.verify_site(token),
+         {:ok, lead} <- Repo.insert(changeset) do
       {:ok, lead}
     else
       {:ok, %{success: false}} ->
@@ -25,6 +27,9 @@ defmodule LandingPage.Marketing do
 
       {:error, response} ->
         {:error, response}
+
+      other ->
+        {:error, other}
     end
   end
 

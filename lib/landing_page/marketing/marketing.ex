@@ -18,7 +18,7 @@ defmodule LandingPage.Marketing do
     token = Map.get(lead_params, "recaptcha_token")
 
     with %Ecto.Changeset{valid?: true} = changeset <- Lead.changeset(%Lead{}, lead_params),
-         {:ok, %{success: true}} <- @google_recaptcha_client.verify_site(token),
+         {:ok, %{success: true}} <- @google_recaptcha_client.verify(token),
          {:ok, lead} <- Repo.insert(changeset) do
       {:ok, lead}
     else

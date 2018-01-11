@@ -7,7 +7,7 @@ defmodule LandingPage.Clients.GoogleRecaptchaHttp do
 
   @secret_key Application.get_env(:landing_page, :google_recaptcha_secret)
 
-  def verify_site(token) do
+  def verify(token) do
     params = %{
       secret: @secret_key,
       response: token

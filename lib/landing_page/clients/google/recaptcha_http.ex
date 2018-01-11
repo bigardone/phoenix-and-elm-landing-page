@@ -28,10 +28,5 @@ defmodule LandingPage.Clients.GoogleRecaptchaHttp do
     "https://www.google.com/recaptcha/api" <> url
   end
 
-  def process_response_body(body) do
-    body
-    |> Poison.decode!()
-    |> Enum.map(fn {k, v} -> {String.to_atom(k), v} end)
-    |> Enum.into(%{})
-  end
+  def process_response_body(body), do: Poison.decode!(body, keys: :atoms)
 end

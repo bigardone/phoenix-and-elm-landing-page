@@ -19,7 +19,7 @@ defmodule LandingPage.MarketingTest do
         |> Enum.into(@valid_attrs)
         |> Marketing.create_lead()
 
-      %{lead | recaptcha_token: nil}
+      lead
     end
 
     test "create_lead/1 with valid data creates a lead" do

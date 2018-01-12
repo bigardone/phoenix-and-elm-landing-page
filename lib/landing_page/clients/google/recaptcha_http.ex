@@ -5,7 +5,7 @@ defmodule LandingPage.Clients.GoogleRecaptchaHttp do
 
   use HTTPoison.Base
 
-  @secret_key Application.get_env(:landing_page, :google_recaptcha_secret)
+  @secret_key Application.get_env(:landing_page, :google_recaptcha)[:secret_key]
 
   def verify(token) do
     params = %{

@@ -8,7 +8,7 @@ defmodule LandingPage.Marketing do
     Repo
   }
 
-  @google_recaptcha_client Application.get_env(:landing_page, :google_recaptcha_client)
+  @google_recaptcha_client Application.get_env(:landing_page, :google_recaptcha)[:client]
 
   @doc """
   Verifies the recaptcha token using `@google_recaptcha_client` and

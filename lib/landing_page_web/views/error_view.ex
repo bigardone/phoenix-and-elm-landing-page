@@ -16,7 +16,7 @@ defmodule LandingPageWeb.ErrorView do
   end
 
   def render("invalid_recaptcha_token.json", _) do
-    %{recaptcha_token: ["invalid"]}
+    %{recaptcha_token: ["the response is invalid"]}
   end
 
   # In case no render clause matches or no

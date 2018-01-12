@@ -21,8 +21,10 @@ config :logger, :console,
   metadata: [:request_id]
 
 config :landing_page,
-  google_recaptcha_secret: "",
-  google_recaptcha_client: LandingPage.Clients.GoogleRecaptchaHttp
+  google_recaptcha: [
+    client: LandingPage.Clients.GoogleRecaptchaHttp,
+    secret_key: ""
+  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

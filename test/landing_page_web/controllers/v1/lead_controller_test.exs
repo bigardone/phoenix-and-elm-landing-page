@@ -33,7 +33,7 @@ defmodule LandingPageWeb.V1.LeadControllerTest do
       conn = post(conn, lead_path(conn, :create), params)
 
       assert json_response(conn, 422) == %{
-               "recaptcha_token" => ["invalid"]
+               "recaptcha_token" => ["the response is invalid"]
              }
     end
   end

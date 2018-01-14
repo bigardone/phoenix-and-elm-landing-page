@@ -6,7 +6,7 @@
 
   1. [Bootstrapping the project and the basic API functionality to save our first leads](http://codeloveandboards.com/blog/2017/12/02/phoenix-elm-landing-page-pt-1/)
   2. [Building the landing page UI and the basic Elm subscription form](http://codeloveandboards.com/blog/2017/12/23/phoenix-elm-landing-page-pt-2/)
-  3. Coming soon...
+  3. [Adding Google reCAPTCHA support to avoid spambots](http://codeloveandboards.com/blog/2018/01/06/phoenix-elm-landing-page-pt-3/)
 
 ## Instructions
 To start your Phoenix server:

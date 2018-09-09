@@ -6,16 +6,16 @@
     "watch": "brunch watch --stdin"
   },
   "dependencies": {
-    "bulma": "^0.6.1",
-    "normalize-scss": "^7.0.0",
+    "bulma": "^0.6.2",
+    "normalize-scss": "^7.0.1",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html"
   },
   "devDependencies": {
-    "babel-brunch": "6.1.1",
-    "brunch": "2.10.9",
+    "babel-brunch": "^7.0.0",
+    "brunch": "^2.10.16",
     "clean-css-brunch": "2.10.0",
-    "elm-brunch": "^0.10.0",
+    "elm-brunch": "^0.11.0",
     "sass-brunch": "^2.10.4",
     "uglify-js-brunch": "2.10.0"
   }

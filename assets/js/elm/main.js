@@ -12660,18 +12660,6 @@ var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
 
-var _bigardone$phoenix_and_elm_subscription_form$Ports$initRecaptcha = _elm_lang$core$Native_Platform.outgoingPort(
-	'initRecaptcha',
-	function (v) {
-		return v;
-	});
-var _bigardone$phoenix_and_elm_subscription_form$Ports$resetRecaptcha = _elm_lang$core$Native_Platform.outgoingPort(
-	'resetRecaptcha',
-	function (v) {
-		return null;
-	});
-var _bigardone$phoenix_and_elm_subscription_form$Ports$setRecaptchaToken = _elm_lang$core$Native_Platform.incomingPort('setRecaptchaToken', _elm_lang$core$Json_Decode$string);
-
 var _bigardone$phoenix_and_elm_subscription_form$Update$update = F2(
 	function (msg, model) {
 		var formFields = _bigardone$phoenix_and_elm_subscription_form$Model$extractFormFields(model.subscribeForm);
@@ -12731,28 +12719,28 @@ var _bigardone$phoenix_and_elm_subscription_form$Update$update = F2(
 								_elm_lang$core$Native_Utils.update(
 									model,
 									{
-										subscribeForm: A2(_bigardone$phoenix_and_elm_subscription_form$Model$Invalid, formFields, _p1._0)
+										subscribeForm: A2(
+											_bigardone$phoenix_and_elm_subscription_form$Model$Invalid,
+											_elm_lang$core$Native_Utils.update(
+												formFields,
+												{recaptchaToken: _elm_lang$core$Maybe$Nothing}),
+											_p1._0)
 									}),
-								{
-									ctor: '::',
-									_0: _bigardone$phoenix_and_elm_subscription_form$Ports$resetRecaptcha(
-										{ctor: '_Tuple0'}),
-									_1: {ctor: '[]'}
-								});
+								{ctor: '[]'});
 						} else {
 							return A2(
 								_elm_lang$core$Platform_Cmd_ops['!'],
 								_elm_lang$core$Native_Utils.update(
 									model,
 									{
-										subscribeForm: A2(_bigardone$phoenix_and_elm_subscription_form$Model$Errored, formFields, 'Oops! Something went wrong!')
+										subscribeForm: A2(
+											_bigardone$phoenix_and_elm_subscription_form$Model$Errored,
+											_elm_lang$core$Native_Utils.update(
+												formFields,
+												{recaptchaToken: _elm_lang$core$Maybe$Nothing}),
+											'Oops! Something went wrong!')
 									}),
-								{
-									ctor: '::',
-									_0: _bigardone$phoenix_and_elm_subscription_form$Ports$resetRecaptcha(
-										{ctor: '_Tuple0'}),
-									_1: {ctor: '[]'}
-								});
+								{ctor: '[]'});
 						}
 					} else {
 						return A2(
@@ -12760,14 +12748,14 @@ var _bigardone$phoenix_and_elm_subscription_form$Update$update = F2(
 							_elm_lang$core$Native_Utils.update(
 								model,
 								{
-									subscribeForm: A2(_bigardone$phoenix_and_elm_subscription_form$Model$Errored, formFields, 'Oops! Something went wrong!')
+									subscribeForm: A2(
+										_bigardone$phoenix_and_elm_subscription_form$Model$Errored,
+										_elm_lang$core$Native_Utils.update(
+											formFields,
+											{recaptchaToken: _elm_lang$core$Maybe$Nothing}),
+										'Oops! Something went wrong!')
 								}),
-							{
-								ctor: '::',
-								_0: _bigardone$phoenix_and_elm_subscription_form$Ports$resetRecaptcha(
-									{ctor: '_Tuple0'}),
-								_1: {ctor: '[]'}
-							});
+							{ctor: '[]'});
 					}
 				}
 			default:
@@ -13252,9 +13240,32 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
+var _bigardone$phoenix_and_elm_subscription_form$View$decodeGotToken = A2(
+	_elm_lang$core$Json_Decode$map,
+	_bigardone$phoenix_and_elm_subscription_form$Messages$SetRecaptchaToken,
+	A2(
+		_elm_lang$core$Json_Decode$at,
+		{
+			ctor: '::',
+			_0: 'target',
+			_1: {
+				ctor: '::',
+				_0: 'token',
+				_1: {ctor: '[]'}
+			}
+		},
+		_elm_lang$core$Json_Decode$string));
+var _bigardone$phoenix_and_elm_subscription_form$View$encodeRecaptchaToken = function (maybeRecaptchaToken) {
+	var _p0 = maybeRecaptchaToken;
+	if (_p0.ctor === 'Just') {
+		return _elm_lang$core$Json_Encode$string(_p0._0);
+	} else {
+		return _elm_lang$core$Json_Encode$null;
+	}
+};
 var _bigardone$phoenix_and_elm_subscription_form$View$formError = function (subscribeForm) {
-	var _p0 = subscribeForm;
-	if (_p0.ctor === 'Errored') {
+	var _p1 = subscribeForm;
+	if (_p1.ctor === 'Errored') {
 		return A2(
 			_elm_lang$html$Html$div,
 			{
@@ -13264,7 +13275,7 @@ var _bigardone$phoenix_and_elm_subscription_form$View$formError = function (subs
 			},
 			{
 				ctor: '::',
-				_0: _elm_lang$html$Html$text(_p0._1),
+				_0: _elm_lang$html$Html$text(_p1._1),
 				_1: {ctor: '[]'}
 			});
 	} else {
@@ -13273,8 +13284,8 @@ var _bigardone$phoenix_and_elm_subscription_form$View$formError = function (subs
 };
 var _bigardone$phoenix_and_elm_subscription_form$View$validationErrorView = F2(
 	function (key, validationErrors) {
-		var _p1 = A2(_elm_lang$core$Dict$get, key, validationErrors);
-		if (_p1.ctor === 'Just') {
+		var _p2 = A2(_elm_lang$core$Dict$get, key, validationErrors);
+		if (_p2.ctor === 'Just') {
 			return A2(
 				_elm_lang$html$Html$p,
 				{
@@ -13282,33 +13293,33 @@ var _bigardone$phoenix_and_elm_subscription_form$View$validationErrorView = F2(
 					_0: _elm_lang$html$Html_Attributes$class('help is-danger'),
 					_1: {ctor: '[]'}
 				},
-				A2(_elm_lang$core$List$map, _elm_lang$html$Html$text, _p1._0));
+				A2(_elm_lang$core$List$map, _elm_lang$html$Html$text, _p2._0));
 		} else {
 			return _elm_lang$html$Html$text('');
 		}
 	});
 var _bigardone$phoenix_and_elm_subscription_form$View$formView = function (subscribeForm) {
 	var invalid = function () {
-		var _p2 = subscribeForm;
-		if (_p2.ctor === 'Invalid') {
+		var _p3 = subscribeForm;
+		if (_p3.ctor === 'Invalid') {
 			return true;
 		} else {
 			return false;
 		}
 	}();
 	var saving = function () {
-		var _p3 = subscribeForm;
-		if (_p3.ctor === 'Saving') {
+		var _p4 = subscribeForm;
+		if (_p4.ctor === 'Saving') {
 			return true;
 		} else {
 			return false;
 		}
 	}();
 	var validationErrors = _bigardone$phoenix_and_elm_subscription_form$Model$extractValidationErrors(subscribeForm);
-	var _p4 = _bigardone$phoenix_and_elm_subscription_form$Model$extractFormFields(subscribeForm);
-	var fullName = _p4.fullName;
-	var email = _p4.email;
-	var recaptchaToken = _p4.recaptchaToken;
+	var _p5 = _bigardone$phoenix_and_elm_subscription_form$Model$extractFormFields(subscribeForm);
+	var fullName = _p5.fullName;
+	var email = _p5.email;
+	var recaptchaToken = _p5.recaptchaToken;
 	var buttonDisabled = _elm_lang$core$Native_Utils.eq(fullName, '') || (_elm_lang$core$Native_Utils.eq(email, '') || (_elm_lang$core$Native_Utils.eq(recaptchaToken, _elm_lang$core$Maybe$Nothing) || (_elm_lang$core$Native_Utils.eq(
 		recaptchaToken,
 		_elm_lang$core$Maybe$Just('')) || (saving || invalid))));
@@ -13496,12 +13507,24 @@ var _bigardone$phoenix_and_elm_subscription_form$View$formView = function (subsc
 											},
 											{
 												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$div,
+												_0: A3(
+													_elm_lang$html$Html$node,
+													'g-recaptcha',
 													{
 														ctor: '::',
 														_0: _elm_lang$html$Html_Attributes$id('recaptcha'),
-														_1: {ctor: '[]'}
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html_Attributes$property,
+																'token',
+																_bigardone$phoenix_and_elm_subscription_form$View$encodeRecaptchaToken(recaptchaToken)),
+															_1: {
+																ctor: '::',
+																_0: A2(_elm_lang$html$Html_Events$on, 'gotToken', _bigardone$phoenix_and_elm_subscription_form$View$decodeGotToken),
+																_1: {ctor: '[]'}
+															}
+														}
 													},
 													{ctor: '[]'}),
 												_1: {
@@ -13599,11 +13622,11 @@ var _bigardone$phoenix_and_elm_subscription_form$View$formView = function (subsc
 			}
 		});
 };
-var _bigardone$phoenix_and_elm_subscription_form$View$view = function (_p5) {
-	var _p6 = _p5;
-	var _p8 = _p6.subscribeForm;
-	var _p7 = _p8;
-	if (_p7.ctor === 'Success') {
+var _bigardone$phoenix_and_elm_subscription_form$View$view = function (_p6) {
+	var _p7 = _p6;
+	var _p9 = _p7.subscribeForm;
+	var _p8 = _p9;
+	if (_p8.ctor === 'Success') {
 		return A2(
 			_elm_lang$html$Html$div,
 			{
@@ -13657,21 +13680,17 @@ var _bigardone$phoenix_and_elm_subscription_form$View$view = function (_p5) {
 				}
 			});
 	} else {
-		return _bigardone$phoenix_and_elm_subscription_form$View$formView(_p8);
+		return _bigardone$phoenix_and_elm_subscription_form$View$formView(_p9);
 	}
 };
 
 var _bigardone$phoenix_and_elm_subscription_form$Main$subscriptions = function (model) {
-	return _bigardone$phoenix_and_elm_subscription_form$Ports$setRecaptchaToken(_bigardone$phoenix_and_elm_subscription_form$Messages$SetRecaptchaToken);
+	return _elm_lang$core$Platform_Sub$none;
 };
 var _bigardone$phoenix_and_elm_subscription_form$Main$init = A2(
 	_elm_lang$core$Platform_Cmd_ops['!'],
 	_bigardone$phoenix_and_elm_subscription_form$Model$initialModel,
-	{
-		ctor: '::',
-		_0: _bigardone$phoenix_and_elm_subscription_form$Ports$initRecaptcha('recaptcha'),
-		_1: {ctor: '[]'}
-	});
+	{ctor: '[]'});
 var _bigardone$phoenix_and_elm_subscription_form$Main$main = _elm_lang$html$Html$program(
 	{init: _bigardone$phoenix_and_elm_subscription_form$Main$init, view: _bigardone$phoenix_and_elm_subscription_form$View$view, update: _bigardone$phoenix_and_elm_subscription_form$Update$update, subscriptions: _bigardone$phoenix_and_elm_subscription_form$Main$subscriptions})();
 

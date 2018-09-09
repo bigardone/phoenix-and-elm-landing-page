@@ -4,6 +4,8 @@ import Dict exposing (Dict)
 import Html exposing (Html, form)
 import Html.Attributes as Html
 import Html.Events as Html
+import Json.Decode as Decode
+import Json.Encode as Encode
 import Messages exposing (Msg(..))
 import Model exposing (..)
 
@@ -69,87 +71,90 @@ formView subscribeForm =
                 || saving
                 || invalid
     in
-        Html.div
-            [ Html.class "content" ]
-            [ Html.h3
-                []
-                [ Html.text "Want to know more?" ]
-            , Html.p
-                []
-                [ Html.text "Subscribe to stay updated" ]
-            , formError subscribeForm
-            , form
-                [ Html.onSubmit HandleFormSubmit ]
+    Html.div
+        [ Html.class "content" ]
+        [ Html.h3
+            []
+            [ Html.text "Want to know more?" ]
+        , Html.p
+            []
+            [ Html.text "Subscribe to stay updated" ]
+        , formError subscribeForm
+        , form
+            [ Html.onSubmit HandleFormSubmit ]
+            [ Html.div
+                [ Html.class "field" ]
                 [ Html.div
-                    [ Html.class "field" ]
-                    [ Html.div
-                        [ Html.class "control" ]
-                        [ Html.input
-                            [ Html.classList
-                                [ ( "input is-medium", True )
-                                , ( "is-danger", Dict.member "full_name" validationErrors )
-                                ]
-                            , Html.placeholder "My name is..."
-                            , Html.required True
-                            , Html.value fullName
-                            , Html.onInput HandleFullNameInput
+                    [ Html.class "control" ]
+                    [ Html.input
+                        [ Html.classList
+                            [ ( "input is-medium", True )
+                            , ( "is-danger", Dict.member "full_name" validationErrors )
                             ]
-                            []
-                        , validationErrorView "full_name" validationErrors
+                        , Html.placeholder "My name is..."
+                        , Html.required True
+                        , Html.value fullName
+                        , Html.onInput HandleFullNameInput
                         ]
-                    ]
-                , Html.div
-                    [ Html.class "field" ]
-                    [ Html.div
-                        [ Html.class "control" ]
-                        [ Html.input
-                            [ Html.classList
-                                [ ( "input is-medium", True )
-                                , ( "is-danger", Dict.member "email" validationErrors )
-                                ]
-                            , Html.type_ "email"
-                            , Html.placeholder "My email address is..."
-                            , Html.required True
-                            , Html.value email
-                            , Html.onInput HandleEmailInput
-                            ]
-                            []
-                        , validationErrorView "email" validationErrors
-                        ]
-                    ]
-                , Html.div
-                    [ Html.class "field" ]
-                    [ Html.div
-                        [ Html.id "recaptcha" ]
                         []
-                    , validationErrorView "recaptcha_token" validationErrors
+                    , validationErrorView "full_name" validationErrors
                     ]
-                , Html.div
-                    [ Html.class "field" ]
-                    [ Html.div
-                        [ Html.class "control" ]
-                        [ Html.button
-                            [ Html.class "button is-primary is-medium"
-                            , Html.disabled buttonDisabled
+                ]
+            , Html.div
+                [ Html.class "field" ]
+                [ Html.div
+                    [ Html.class "control" ]
+                    [ Html.input
+                        [ Html.classList
+                            [ ( "input is-medium", True )
+                            , ( "is-danger", Dict.member "email" validationErrors )
                             ]
-                            [ Html.span
-                                [ Html.class "icon" ]
-                                [ Html.i
-                                    [ Html.classList
-                                        [ ( "fa fa-check", not saving )
-                                        , ( "fa fa-circle-o-notch fa-spin", saving )
-                                        ]
+                        , Html.type_ "email"
+                        , Html.placeholder "My email address is..."
+                        , Html.required True
+                        , Html.value email
+                        , Html.onInput HandleEmailInput
+                        ]
+                        []
+                    , validationErrorView "email" validationErrors
+                    ]
+                ]
+            , Html.div
+                [ Html.class "field" ]
+                [ Html.node "g-recaptcha"
+                    [ Html.id "recaptcha"
+                    , Html.property "token" <| encodeRecaptchaToken recaptchaToken
+                    , Html.on "gotToken" decodeGotToken
+                    ]
+                    []
+                , validationErrorView "recaptcha_token" validationErrors
+                ]
+            , Html.div
+                [ Html.class "field" ]
+                [ Html.div
+                    [ Html.class "control" ]
+                    [ Html.button
+                        [ Html.class "button is-primary is-medium"
+                        , Html.disabled buttonDisabled
+                        ]
+                        [ Html.span
+                            [ Html.class "icon" ]
+                            [ Html.i
+                                [ Html.classList
+                                    [ ( "fa fa-check", not saving )
+                                    , ( "fa fa-circle-o-notch fa-spin", saving )
                                     ]
-                                    []
                                 ]
-                            , Html.span
                                 []
-                                [ Html.text "Subscribe me" ]
                             ]
+                        , Html.span
+                            []
+                            [ Html.text "Subscribe me" ]
                         ]
                     ]
                 ]
             ]
+        ]
 
 
 validationErrorView : String -> ValidationErrors -> Html Msg
@@ -175,3 +180,18 @@ formError subscribeForm =
 
         _ ->
             Html.text ""
+
+
+encodeRecaptchaToken : Maybe String -> Encode.Value
+encodeRecaptchaToken maybeRecaptchaToken =
+    case maybeRecaptchaToken of
+        Just recaptchaToken ->
+            Encode.string recaptchaToken
+
+        Nothing ->
+            Encode.null
+
+
+decodeGotToken : Decode.Decoder Msg
+decodeGotToken =
+    Decode.map SetRecaptchaToken <| Decode.at [ "target", "token" ] <| Decode.string

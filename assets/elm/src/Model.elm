@@ -1,4 +1,4 @@
-module Model exposing (..)
+module Model exposing (FormFields, Model, SubscribeForm(..), ValidationErrors, emptyFormFields, emptyValidationErrors, extractFormFields, extractValidationErrors, initialModel)
 
 import Dict exposing (Dict)
 
